@@ -1,14 +1,20 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { parse as csvParse } from "csv-parse";
-import fs from "fs";
+import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import { ImportCategoryService } from "../../services/importCategoryService/ImportCategoryService";
 
 class ImportCategoryUseCase {
-    execute(file: Express.Multer.File): void {
-        const stream = fs.createReadStream(file.path);
-        const parseFile = csvParse();
-        stream.pipe(parseFile);
-        parseFile.on("data", async (line) => {
-            console.log(line);
+    constructor(private categoriesRepository: ICategoriesRepository) {}
+
+    async execute(file: Express.Multer.File): Promise<void> {
+        const importCategoryService = new ImportCategoryService();
+        const categories = await importCategoryService.loadCategories(file);
+        // eslint-disable-next-line array-callback-return
+        categories.map((category) => {
+            const { name, description } = category;
+            const existCategory = this.categoriesRepository.findByName(name);
+            if (!existCategory) {
+                this.categoriesRepository.create({ name, description });
+            }
         });
     }
 }

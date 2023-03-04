@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+        "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+        "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
     },
     "dependencies": {
         "@types/csv-parse": "^1.2.2",

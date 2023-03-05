@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+
 import { Category } from "../../entities/Category";
 import {
     ICategoriesRepository,
@@ -7,18 +8,18 @@ import {
 
 class CategoriesRepository implements ICategoriesRepository {
     private repository: Repository<Category>;
-    private static INSTANCE: CategoriesRepository;
+    // private static INSTANCE: CategoriesRepository;
 
-    private constructor() {
+    constructor() {
         this.repository = getRepository(Category);
     }
 
-    public static getInstance(): CategoriesRepository {
+    /* public static getInstance(): CategoriesRepository {
         if (!CategoriesRepository.INSTANCE) {
             CategoriesRepository.INSTANCE = new CategoriesRepository();
         }
         return CategoriesRepository.INSTANCE;
-    }
+    } */
 
     async create({ description, name }: ICreateCategoryDTO): Promise<void> {
         const category = this.repository.create({

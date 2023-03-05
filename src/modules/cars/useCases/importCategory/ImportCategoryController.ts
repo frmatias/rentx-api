@@ -1,13 +1,14 @@
 import { Response, Request } from "express";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { container } from "tsyringe";
 
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
 class ImportCategoryController {
-    constructor(private importCategoryUseCase: ImportCategoryUseCase) {}
-
     async handle(request: Request, response: Response): Promise<Response> {
         const { file } = request;
-        await this.importCategoryUseCase.execute(file);
+        const importCategoryUseCase = container.resolve(ImportCategoryUseCase);
+        await importCategoryUseCase.execute(file);
         return response.send();
     }
 }

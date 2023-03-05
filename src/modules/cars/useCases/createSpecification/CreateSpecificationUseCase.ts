@@ -1,12 +1,20 @@
+import "reflect-metadata";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { inject, injectable } from "tsyringe";
+
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
 
 interface IRequest {
     name: string;
     description: string;
 }
-
+@injectable()
 class CreateSpecificationUseCase {
-    constructor(private specificationsRepository: ISpecificationsRepository) {}
+    // eslint-disable-next-line prettier/prettier
+    constructor(
+        @inject("SpecificationsRepository")
+        private specificationsRepository: ISpecificationsRepository
+    ) {}
 
     execute({ name, description }: IRequest): void {
         const specificationAlreadyExists =

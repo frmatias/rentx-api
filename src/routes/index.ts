@@ -8,6 +8,6 @@ const router = Router();
 
 router.use("/categories", categoriesRoutes);
 router.use("/specifications", specificationsRoutes);
-router.use("users", usersRouters);
+router.use("/users", usersRouters);
 
 export { router };

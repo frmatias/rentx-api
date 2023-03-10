@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
@@ -24,7 +24,7 @@ class AuthenticateUserUseCase {
         @inject("UsersRepository")
         private usersRepository: IUsersRepository
     ) {}
-    async execute({ email, password }: IRequest): Promise<IResponse>{
+    async execute({ email, password }: IRequest): Promise<IResponse> {
         const user = await this.usersRepository.findByEmail(email);
         if (!user) {
             throw new Error("Email or password not found");

@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+
 // eslint-disable-next-line import-helpers/order-imports
 import express from "express";
 
@@ -9,6 +11,7 @@ import swaggerFile from "./swagger.json";
 import "./database";
 
 import "./shared/container";
+// eslint-disable-next-line import/no-extraneous-dependencies
 
 const app = express();
 

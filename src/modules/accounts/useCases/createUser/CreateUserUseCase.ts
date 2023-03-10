@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { inject, injectable } from "tsyringe";
 

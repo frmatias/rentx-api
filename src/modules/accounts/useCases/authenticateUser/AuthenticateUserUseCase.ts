@@ -5,6 +5,7 @@ import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "../../repositories/IUsersRepository";
+import { AppError } from "../../../../errors/AppError";
 
 interface IRequest {
     email: string;
@@ -27,11 +28,11 @@ class AuthenticateUserUseCase {
     async execute({ email, password }: IRequest): Promise<IResponse> {
         const user = await this.usersRepository.findByEmail(email);
         if (!user) {
-            throw new Error("Email or password not found");
+            throw new AppError("Email or password not found");
         }
         const passwordMatch = await compare(password, user.password);
         if (!passwordMatch) {
-            throw new Error("Email or password not found");
+            throw new AppError("Email or password not found");
         }
         const token = sign({}, "e572913f02542e057f17daf954d81f98", {
             subject: user.id,

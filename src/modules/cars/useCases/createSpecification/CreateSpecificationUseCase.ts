@@ -1,8 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import "reflect-metadata";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { inject, injectable } from "tsyringe";
 
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
+import { AppError } from "../../../../errors/AppError";
 
 interface IRequest {
     name: string;
@@ -21,7 +23,7 @@ class CreateSpecificationUseCase {
             await this.specificationsRepository.findByName(name);
 
         if (specificationAlreadyExists) {
-            throw new Error(`Specification ${name} already exists`);
+            throw new AppError(`Specification ${name} already exists`);
         }
 
         this.specificationsRepository.create({

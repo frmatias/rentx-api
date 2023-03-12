@@ -1,8 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import "reflect-metadata";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { inject, injectable } from "tsyringe";
 
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+import { AppError } from "../../../../errors/AppError";
 
 interface IRequest {
     name: string;
@@ -20,7 +22,7 @@ class CreateCategoryUseCase {
             await this.categoriesRepository.findByName(name);
 
         if (categoryAlreadyExists) {
-            throw new Error("Category already exists");
+            throw new AppError("Category already exists");
         }
 
         this.categoriesRepository.create({ description, name });
